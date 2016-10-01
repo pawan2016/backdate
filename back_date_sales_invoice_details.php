@@ -108,8 +108,8 @@ if($check_super_admin["role_id"]==0 && $check_super_admin["office_id"]==0)
 											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php  $curr_date = $InvoiceDetails->createdOn; $datetime = new DateTime($curr_date); $date = $datetime->format('d-m-Y'); echo $date;?></td>
 											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php  echo $InvoiceDetails->invoice_number;?></td>
 											
-											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->customer_pan_number !=''){ echo $InvoiceDetails->customer_pan_number;} else if($InvoiceDetails->modal_customer_pan_number!='') { echo $InvoiceDetails->modal_customer_pan_number; } else { echo 'N/A'; } ?></td>
-											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->customer_name !=''){ echo $InvoiceDetails->customer_name;} else if($InvoiceDetails->modal_customer_name!='') { echo $InvoiceDetails->modal_customer_name; } else { echo 'N/A'; } ?></td>
+											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->modal_customer_pan_number!='') { echo $InvoiceDetails->modal_customer_pan_number; } else { echo 'N/A'; } ?></td>
+											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->modal_customer_name!='') { echo $InvoiceDetails->modal_customer_name; } else { echo 'N/A'; } ?></td>
 											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->narration!='') { echo $InvoiceDetails->narration; } else { echo 'N/A'; } ?> </td>
 											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->manual_invoice_number!='') { echo $InvoiceDetails->manual_invoice_number; } else { echo 'N/A'; } ?> </td>
 											
@@ -126,7 +126,7 @@ if($check_super_admin["role_id"]==0 && $check_super_admin["office_id"]==0)
 											}
 											
 												?></td>
-											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php echo number_format($InvoiceDetails->total_amount,2,'.',',');?></td>
+											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php echo number_format($InvoiceDetails->total_amount + $InvoiceDetails->adjustment ,2,'.',',');?></td>
 											<td class="center text-center" style="<?php echo $style_deleted;?>"><?php if($InvoiceDetails->invoice_upload_document!=''){
 												?>
 												<a href="<?php echo base_url();?>/uploads/Invoice/<?php echo $InvoiceDetails->invoice_upload_document;?>" target="_blank"><img src="<?php echo base_url();?>/uploads/Invoice/<?php echo $InvoiceDetails->invoice_upload_document;?>" height="50px" width="50px" /></a>
@@ -134,7 +134,7 @@ if($check_super_admin["role_id"]==0 && $check_super_admin["office_id"]==0)
 											} ?></td>
 											<td class="center text-center" style="<?php echo $style_deleted;?>">
 											<?php if($view_value == "3"){ ?>
-												<a class="btn btn-info my-btn-class"  href="<?php echo base_url('invoice/sales_invoice_receipt?backdate=1&invoice_id='.base64_encode($InvoiceDetails->invoice_id));?>" title="View">
+												<a class="btn btn-info my-btn-class" target="_blank"  href="<?php echo base_url('invoice/sales_invoice_receipt?backdate=1&invoice_id='.base64_encode($InvoiceDetails->invoice_id));?>" title="View">
 													<i class="glyphicon glyphicon-view icon-white"></i>
 													View
 												</a>

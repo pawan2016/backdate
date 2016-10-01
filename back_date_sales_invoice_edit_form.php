@@ -260,9 +260,9 @@ $serialMaster = $this->db->select('in_p_sn.serial_number as serial_number')->fro
 								
 							
 							<div class="row form-group col-lg-12 " style="padding:0;" id="sales_invoice_payment_mode-<?php echo $i;?>">
-								<div class="form-group col-lg-3" style="padding:0">
+								<div class="form-group col-lg-2" style="padding:0">
 									
-									<label class="control-label">Payment Mode :</label>
+									<label class="control-label">Payment Mode</label>
 									<div id="payment_div_id_<?php echo $i;?>">
 									
 										<select id="payment_mode-<?php echo $i;?>" name="payment_mode[]" data-rel="chosen" class="form-control " onchange="getcheckcard(this.id,'<?php echo $i;?>');unselectpayment_mode(this.id,'<?php echo $i;?>')" >
@@ -297,7 +297,7 @@ $serialMaster = $this->db->select('in_p_sn.serial_number as serial_number')->fro
 									?>
 									
 								
-								<div class="form-group col-lg-2" id="div_card_data_<?php echo $i;?>" style="<?php echo $style;?>">
+								<div class="form-group col-lg-3" id="div_card_data_<?php echo $i;?>" style="<?php echo $style;?>">
 									<label class="control-label" id="lable_card_<?php echo $i;?>">Card No.</label>
 									
 										<input type="text" class="form-control" name="card_check_number[]" id="card_check_number_<?php echo $i;?>" <?php if($ipayment->payment_type=='credit card' || $ipayment->payment_type=='debit card' ) {?> maxlength="4" <?php } ?> value="<?php echo $ipayment->card_cheque_number;?>" />
@@ -747,7 +747,7 @@ netAmount = parseFloat($("#total_net_amount").val());
 	function getcheckcard(id,divnumber)
 	{
 	var payment_mode=$('#'+id+' :selected').val();
-
+$("#card_check_number_"+divnumber).attr("placeholder", "");
 		if(payment_mode=='credit card' || payment_mode=='debit card')
 		{
 		$("#div_card_data_"+divnumber).show();
@@ -763,7 +763,9 @@ netAmount = parseFloat($("#total_net_amount").val());
 		$("#card_check_name_"+divnumber).val('');
 		if(payment_mode=='cheque')
 		{
-			$("#lable_card_"+divnumber).html('Cheque Number');
+			/$("#lable_card_"+divnumber).html('Cheque Number');
+			$("#lable_card_"+divnumber).html('Cheque No. & Date');
+			$("#card_check_number_"+divnumber).attr("placeholder", "123456/MM-DD-YYYY");
 		}
 		else{
 			$("#lable_card_"+divnumber).html('NEFT Details');
@@ -1253,6 +1255,7 @@ function removeNewRawSalesInvoice(div_id)
 
 		$('#sales_invoice_payment_mode-'+div_id+' input').val('');
 		$('#sales_invoice_payment_mode-'+div_id).html('');
+		unselectpayment_mode('payment_mode-'+div_id,div_id);
 		getTotal_received();
 	}
 function resetErrors() {
